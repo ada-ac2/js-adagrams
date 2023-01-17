@@ -1,8 +1,8 @@
 export const drawLetters = () => {
   // Implement this method for wave 1
-  const letter_pool = [];
+  const letterPool = [];
 
-  const letter_counts = {
+  const letterCounts = {
     'A': 9, 
     'B': 2, 
     'C': 2, 
@@ -31,23 +31,63 @@ export const drawLetters = () => {
     'Z': 1
   }
   
-  for (let [key,value] of Object.entries(letter_counts)) {
+  for (let [key,value] of Object.entries(letterCounts)) {
     for (let i = 0; i < value; ++i) {
-      letter_pool.push(key);
+      letterPool.push(key);
     }
   }
 
-  const shuffle = function (letter_pool) {
-    letter_pool.sort(() => Math.random() - 0.5);
+  const shuffle = function (letterPool) {
+    letterPool.sort(() => Math.random() - 0.5);
   }
   
-  shuffle(letter_pool);
-  const letter_pool_selection = letter_pool.slice(0, 10);
-  return letter_pool_selection;
+  shuffle(letterPool);
+  const letterPoolSelection = letterPool.slice(0, 10);
+  return letterPoolSelection;
 };
 
-const usesAvailableLetters = (input, lettersInHand) => {
+export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
+  let valid = false;
+
+  let word = input.toUpperCase();
+
+  // Create dictionary of letter frequency for lettersInHand
+  const letterBankCount = {}
+
+  for (const letter of lettersInHand) {
+    if (letterBankCount.hasOwnProperty(letter)) {
+      letterBankCount[letter] += 1;
+    } else {
+      letterBankCount[letter] = 1;
+    }
+  }
+
+  // Create dictionary of letter frequency for word
+  const wordCount = {}
+
+  for (const letter of word) {
+    if (wordCount.hasOwnProperty(letter)) {
+      wordCount[letter] += 1;
+    } else {
+      wordCount[letter] = 1;
+    }
+  }
+
+  // Check that word letter frequency complies with lettersInHand
+
+  for (let [key,value] of Object.entries(wordCount)) {
+    if (!letterBankCount.hasOwnProperty(key)) {
+      return false;
+    } else if (wordCount[key] > letterBankCount[key]) {
+      return false;
+    } else if (wordCount[key] <= letterBankCount[key]) {
+      valid = true;
+    }
+  }
+
+  return valid;
+
 };
 
 const scoreWord = (word) => {
