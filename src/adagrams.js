@@ -44,7 +44,18 @@ export const drawLetters = () => {
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
+  let usesOnlyAvailableLetters = true;
+  [...input].forEach((letter) => {
+    const index = lettersInHand.indexOf(letter);
+    // indexOf method return -1 if letter not found
+    if (index != -1) {
+      // for splice, need to specify only 1 letter should be removed
+      lettersInHand.splice(index, 1);
+    } else {
+      usesOnlyAvailableLetters = false;
+    }
+  });
+  return usesOnlyAvailableLetters;
 };
 
 export const scoreWord = (word) => {
