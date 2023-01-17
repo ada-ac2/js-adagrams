@@ -1,5 +1,5 @@
 export const drawLetters = () => {
-  let letterPool = {
+  const letterPool = {
     A: 9,
     B: 2,
     C: 2,
@@ -28,7 +28,7 @@ export const drawLetters = () => {
     Z: 1,
   };
   const letters = Object.keys(letterPool);
-  let hand = [];
+  const hand = [];
   let i = 0;
 
   while (i < 10) {
