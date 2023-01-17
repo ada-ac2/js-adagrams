@@ -32,7 +32,7 @@ export const drawLetters = () => {
   let letters = [];
   for (let i = 0; i < 10; ++i) {
     let letter = String.fromCharCode(Math.floor(Math.random() * 26) + 65);
-    if (!letters.includes(letter) && LETTER_POOL[letter] > 0) {
+    if (LETTER_POOL[letter] > 0) {
         LETTER_POOL[letter] -= 1;
         letters.push(letter);
       } else {
