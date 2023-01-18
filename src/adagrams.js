@@ -51,7 +51,26 @@ export const drawLetters = () => {
 
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
+  const letterCount = new Map();
+  for (const letter of lettersInHand){
+      let count = letterCount.get(letter);
+      if (count === undefined){
+        count = 0;
+      }
+      count ++;
+      letterCount.set(letter, count);
+  }
+  
+  for (const cha of input){
+    let cur_count = letterCount.get(cha);
+    if (cur_count === undefined || cur_count === 0){
+        return false;
+    }
+    cur_count --;
+    letterCount.set(cha, cur_count);
+  }
+  return true;
+
 };
 
 export const scoreWord = (word) => {
