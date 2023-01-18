@@ -43,35 +43,6 @@ const getRandomNumber = (maxNum) => {
   return Math.floor(Math.random() * maxNum);
 };
 
-// const removeElementFromArray = (array, element) => {
-//   if(!array) {
-//     return []
-//   }
-//   if(array[0]===element) {
-//     array.shift();
-//     return array;
-//   }
-//   if(array[array.length-1]===element){
-//     array.pop();
-//     return array;
-//   }
-//   //Find element
-//   let i = 0;
-//   for(i; i< array.length; ++i){
-//     if(array[i]===element){
-//       break;
-//     }
-//   }
-//   for(i; i < array.length-1; ++i){
-//     let val = array[i+1];
-//     array[i] = val;
-//   }
-//   array.length--;
-
-//   return array
-
-// }
-
 export const drawLetters = () => {
   const poolRules = {
     A: 9,
@@ -115,10 +86,11 @@ export const drawLetters = () => {
 const createLettersInHandDict = (lettersInHandArray) => {
   const lettersDict = {};
   for (let i = 0; i < lettersInHandArray.length; ++i) {
-    if (lettersDict[lettersInHandArray[i]] === undefined) {
-      lettersDict[lettersInHandArray[i]] = 1;
+    let char = lettersInHandArray[i];
+    if (lettersDict[char] === undefined) {
+      lettersDict[char] = 1;
     } else {
-      lettersDict[lettersInHandArray[i]]++;
+      lettersDict[char]++;
     }
   }
   return lettersDict;
@@ -129,7 +101,7 @@ export const usesAvailableLetters = (input, lettersInHand) => {
     return false;
   }
   const letterBank = createLettersInHandDict(lettersInHand);
-  input.toUpperCase();
+  input = input.toUpperCase();
   for (let i = 0; i < input.length; ++i) {
     let letter = input[i];
     if (letterBank[letter] == undefined) {
@@ -144,7 +116,23 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 };
 
 export const scoreWord = (word) => {
-  // Implement this method for wave 3
+  if (!word) {
+    return 0;
+  }
+  let points = 0;
+  word = word.toUpperCase();
+  for (let i = 0; i < word.length; ++i) {
+    let letter = word[i];
+    if (letterValues[letter] != undefined) {
+      // If its undefined means letter is a special character
+      points += letterValues[letter];
+    }
+  }
+
+  if (word.length >= 7 && word.length <= 10) {
+    points += 8;
+  }
+  return points;
 };
 
 export const highestScoreFrom = (words) => {
