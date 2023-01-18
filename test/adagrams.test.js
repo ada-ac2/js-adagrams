@@ -1,9 +1,4 @@
-import {
-  drawLetters,
-  usesAvailableLetters,
-  scoreWord,
-  highestScoreFrom,
-} from "adagrams";
+import Adagrams from "../src/adagrams";
 
 const LETTER_POOL = {
   A: 9,
