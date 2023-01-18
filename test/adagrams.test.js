@@ -1,5 +1,9 @@
 import Adagrams from "../src/adagrams";
 
+beforeEach(() => {
+  jest.restoreAllMocks();
+});
+
 const LETTER_POOL = {
   A: 9,
   B: 2,
@@ -30,15 +34,22 @@ const LETTER_POOL = {
 };
 
 describe("Adagrams", () => {
+  // setup mocks for testing
+  const game = new Adagrams();
+  const drawLetters = jest.spyOn(game, "drawLetters");
+  const usesAvailableLetters = jest.spyOn(game, "usesAvailableLetters");
+  const scoreWord = jest.spyOn(game, "scoreWord");
+  const highestScoreFrom = jest.spyOn(game, "highestScoreFrom");
+
   describe("drawLetters", () => {
     it("draws ten letters from the letter pool", () => {
-      const drawn = drawLetters();
+      const drawn = game.drawLetters();
 
       expect(drawn).toHaveLength(10);
     });
 
     it("returns an array, and each item is a single-letter string", () => {
-      const drawn = drawLetters();
+      const drawn = game.drawLetters();
 
       expect(Array.isArray(drawn)).toBe(true);
       drawn.forEach((l) => {
@@ -48,7 +59,7 @@ describe("Adagrams", () => {
 
     it("does not draw a letter too many times", () => {
       for (let i = 0; i < 1000; i++) {
-        const drawn = drawLetters();
+        const drawn = game.drawLetters();
         const letter_freq = {};
         for (let letter of drawn) {
           if (letter in letter_freq) {
@@ -133,7 +144,10 @@ describe("Adagrams", () => {
   describe("highestScoreFrom", () => {
     it("returns a hash that contains the word and score of best word in an array", () => {
       const words = ["X", "XX", "XXX", "XXXX"];
-      const correct = { word: "XXXX", score: scoreWord("XXXX") };
+      const scoreWord = jest.spyOn(game, "scoreWord");
+      const highestScoreFrom = jest.spyOn(game, "highestScoreFrom");
+      const score = scoreWord("XXXX");
+      const correct = { word: "XXXX", score: score };
 
       expect(highestScoreFrom(words)).toEqual(correct);
     });

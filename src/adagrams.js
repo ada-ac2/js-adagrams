@@ -1,4 +1,9 @@
 export default class Adagrams {
+  constructor() {
+    this.score = 0;
+    this.hand = [];
+  }
+
   drawLetters() {
     const letterPool = {
       A: 9,
@@ -29,19 +34,19 @@ export default class Adagrams {
       Z: 1,
     };
     const letters = Object.keys(letterPool);
-    const hand = [];
+    this.hand = [];
     let i = 0;
 
     while (i < 10) {
       let drawnLetter = letters[Math.floor(Math.random() * letters.length)];
       if (letterPool[drawnLetter] > 0) {
-        hand.push(drawnLetter);
+        this.hand.push(drawnLetter);
         letterPool[drawnLetter]--;
         i++;
       }
     }
 
-    return hand;
+    return this.hand;
   }
 
   usesAvailableLetters(input, lettersInHand) {
@@ -101,13 +106,10 @@ export default class Adagrams {
   }
 
   highestScoreFrom(words) {
-    // const scores = words.map((word) => scoreWord(word));
-    // // sort scores in descending order
-    // scores.sort((a, b) => a - b);
     let max = 0;
     let winner;
     for (let i = 0; i < words.length; i++) {
-      let score = scoreWord(words[i]);
+      let score = this.scoreWord(words[i]);
       if (score > max) {
         winner = { word: words[i], score: score };
         max = score;
