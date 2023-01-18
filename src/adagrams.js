@@ -141,6 +141,38 @@ export const scoreWord = (word) => {
 
 };
 
-const highestScoreFrom = (words) => {
+export const highestScoreFrom = (words) => {
   // Implement this method for wave 4
+  const scores = {};
+
+  for (let word of words) {
+    word = word.toUpperCase();
+    if (!scores.hasOwnProperty(word)) {
+      scores[word] = scoreWord(word)
+    }
+  }
+
+  let highestScore = 0;
+  let winner;
+
+  for (let [wordEntry, value] of Object.entries(scores)) {
+    if (scores[wordEntry] > highestScore) {
+      highestScore = scores[wordEntry];
+      winner = wordEntry;
+    } else if (scores[wordEntry] === highestScore) {
+      if (winner.length === 10) {
+        break;
+      } else if (wordEntry.length === 10 || wordEntry.length < winner.length) {
+        winner = wordEntry;
+      }
+    }
+  }
+
+  const winningObject = {
+    "word": winner,
+    "score": scores[winner],
+  }
+
+  return winningObject;
+
 };
