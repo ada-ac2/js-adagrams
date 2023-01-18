@@ -99,4 +99,27 @@ export const scoreWord = (word) => {
   return score;
 };
 
-export const highestScoreFrom = (words) => {};
+export const highestScoreFrom = (words) => {
+  // const scores = words.map((word) => scoreWord(word));
+  // // sort scores in descending order
+  // scores.sort((a, b) => a - b);
+  let max = 0;
+  let winner;
+  for (let i = 0; i < words.length; i++) {
+    let score = scoreWord(words[i]);
+    if (score > max) {
+      winner = { word: words[i], score: score };
+      max = score;
+    } else if (score == max) {
+      if (winner.word.length == 10) {
+        return winner;
+      } else if (words[i].length == 10) {
+        winner = { word: words[i], score: score };
+        return winner;
+      } else if (words[i].length < winner.word.length) {
+        winner = { word: words[i], score: score };
+      }
+    }
+  }
+  return winner;
+};
