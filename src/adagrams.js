@@ -3,14 +3,25 @@ export const drawLetters = () => {
   let lp_copy = JSON.parse(JSON.stringify(LETTER_POOL));
   let drawLetters = [];
   while (drawLetters.length < 10) {
-    const index = Math.floor(Math.random() * (26 + 1));
-    const letter = Object.keys(lp_copy)[index];
+    const index = Math.floor(Math.random() * (98 + 1));
+    const letter = whichLetter(index, lp_copy);
+    //const letter = Object.keys(lp_copy)[index];
     if (lp_copy[letter] > 0) {
       drawLetters.push(letter);
       lp_copy[letter]--;
     }
   }
   return drawLetters;
+};
+
+const whichLetter = (index, lp_copy) => {
+  for (let letter of Object.keys(lp_copy)) {
+    if (index === 0) {
+      return letter;
+    } else {
+      index -= lp_copy[letter];
+    }
+  }
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
