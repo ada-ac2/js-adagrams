@@ -169,5 +169,78 @@ export const scoreWord = (word) => {
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 4
+  const scoresObject = {};
+  for (const word of words) {
+    scoresObject[word] = scoreWord(word);
+  }
+
+  const scoresArray = Object.values(scoresObject);
+  const maxScore = Math.max(...scoresArray);
+  const wordsWithMaxScore = {};
+  for (const word in scoresObject) {
+    if (scoresObject[word] === maxScore) {
+      wordsWithMaxScore[word] = word.length;
+    }
+  }
+
+  if (Object.keys(wordsWithMaxScore).length === 1) {
+    return {
+      word: Object.keys(wordsWithMaxScore)[0],
+      score: maxScore,
+    };
+  }
+
+  let wordsWithMaxScore10Letters = 0;
+  let winnerWord;
+  for (const word of Object.keys(wordsWithMaxScore)) {
+    if (wordsWithMaxScore[word] === 10) {
+      wordsWithMaxScore10Letters++;
+      winnerWord = word;
+    }
+  }
+
+  if (wordsWithMaxScore10Letters === 1) {
+    return {
+      word: winnerWord,
+      score: maxScore,
+    };
+  }
+
+  const wordLengthsArray = Object.values(wordsWithMaxScore);
+  const minWordLength = Math.min(...wordLengthsArray);
+  const wordsWithMinLength = {};
+  for (const word in wordsWithMaxScore) {
+    if (wordsWithMaxScore[word] === minWordLength) {
+      wordsWithMinLength[word] = words.indexOf(word);
+    }
+  }
+
+  if (Object.keys(wordsWithMinLength).length === 1) {
+    return {
+      word: Object.keys(wordsWithMinLength)[0],
+      score: maxScore,
+    };
+  }
+
+  const indexArray = Object.values(wordsWithMinLength);
+  const minIndex = Math.min(...indexArray);
+  for (const word in wordsWithMinLength) {
+    if (wordsWithMinLength[word] === minIndex) {
+      return {
+        word: word,
+        score: maxScore,
+      };
+    }
+  }
 };
+
+// - create an empty dictionary
+// - loop over the list "words": add the word as the key to the dict and the score (accessed through the last function) as the value
+// -  create an empty dcit: wordsWithHighestScore
+// - find these words manually in a for loop (after finding the maximum value by the builtin function) and add them as the keys and their length as the value
+// - if length of the dict is one: return this word
+// - else: find the words with the score 10 and put them in a list --> if the length is one --> return this word
+
+// - find the minumum word length in the dict and find out how many words share that length by adding these word to a dict where the values are the indeces in the original list
+//- --> if only one has the minLength --> return this word
+//- return the min of this dict
