@@ -59,6 +59,18 @@ const scoreChart ={
 
 export const drawLetters = () => {
   // Implement this method for wave 1
+  let drawLetters = [];
+  let cloneLetterPool = {...letterPool};
+  let letters = Object.keys(cloneLetterPool);
+  for (i=0;i<10;++i){
+    let randomLetter = letters[Math.floor(Math.random()*letters.length)];
+    drawLetters.push(randomLetter);
+    
+      
+
+  }
+
+
 
 };
 
