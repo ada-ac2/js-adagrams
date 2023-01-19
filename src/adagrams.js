@@ -65,8 +65,11 @@ export const drawLetters = () => {
   for (i=0;i<10;++i){
     let randomLetter = letters[Math.floor(Math.random()*letters.length)];
     drawLetters.push(randomLetter);
-    
-      
+    let num = cloneLetterPool.drawLetters;
+    num -= 1;
+    if (num===0){
+      delete cloneLetterPool.randomLetter;
+    }
 
   }
 
