@@ -1,5 +1,5 @@
-const sizeOfDraw = 10;
-const letterValues = {
+const SIZE_OF_DRAW = 10;
+const LETTER_VALUES = {
   A: 1,
   B: 3,
   C: 3,
@@ -75,7 +75,7 @@ export const drawLetters = () => {
   const draw = [];
   const poolLetters = genPoolLetters(poolRules);
 
-  while (draw.length < sizeOfDraw) {
+  while (draw.length < SIZE_OF_DRAW) {
     let randNum = getRandomNumber(poolLetters.length);
     draw.push(poolLetters[randNum]);
     poolLetters.splice(randNum, 1);
@@ -123,18 +123,51 @@ export const scoreWord = (word) => {
   word = word.toUpperCase();
   for (let i = 0; i < word.length; ++i) {
     let letter = word[i];
-    if (letterValues[letter] != undefined) {
+    if (LETTER_VALUES[letter] != undefined) {
       // If its undefined means letter is a special character
-      points += letterValues[letter];
+      points += LETTER_VALUES[letter];
     }
   }
 
-  if (word.length >= 7 && word.length <= 10) {
+  if (word.length >= 7 && word.length <= SIZE_OF_DRAW) {
     points += 8;
   }
   return points;
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 4
+  if (!words) {
+    return {};
+  }
+
+  let maxScore = 0;
+  const wordScores = {}; //will store all the highscored words
+  words.forEach((word) => {
+    let score = scoreWord(word);
+    if (score > maxScore) {
+      maxScore = score;
+      wordScores[score] = new Array({ score, word });
+    } else if (score === maxScore) {
+      wordScores[score].push({ score, word });
+    }
+  });
+
+  const maxScoreWords = wordScores[maxScore];
+  let winWord = maxScoreWords[0];
+  if (maxScoreWords.length > 1) {
+    let minLen = winWord["word"].length;
+    for (let i = 0; i < maxScoreWords.length; ++i) {
+      let word = maxScoreWords[i]["word"];
+      if (word.length === SIZE_OF_DRAW) {
+        winWord = maxScoreWords[i];
+        break;
+      }
+      if (word.length < minLen) {
+        minLen = word.length;
+        winWord = maxScoreWords[i];
+      }
+    }
+  }
+
+  return winWord;
 };
