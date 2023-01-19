@@ -3,8 +3,8 @@ export const drawLetters = () => {
   let lp_copy = JSON.parse(JSON.stringify(LETTER_POOL));
   let drawLetters = [];
   while (drawLetters.length < 10) {
-    let index = Math.floor(Math.random() * (26 - 0 + 1)) + 0;
-    let letter = Object.keys(lp_copy)[index];
+    const index = Math.floor(Math.random() * (26 + 1));
+    const letter = Object.keys(lp_copy)[index];
     if (lp_copy[letter] > 0) {
       drawLetters.push(letter);
       lp_copy[letter]--;
@@ -17,7 +17,7 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
   for (let letter of input) {
     if (lettersInHand.includes(letter)) {
-      let i = lettersInHand.indexOf(letter);
+      const i = lettersInHand.indexOf(letter);
       lettersInHand.splice(i, 1);
     } else {
       return false;
