@@ -71,3 +71,31 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   return true; 
 }
 
+export const scoreWord = (word) => {
+  let score = 0 
+  word = word.toUpperCase() 
+
+  if(word.length >= 7 && word.length <= 10){
+    score += 8 
+  }
+
+  for(const ch of word){
+    if(["A", "E", "I", "O", "U", "L", "N", "R", "S", "T"].includes(ch)){
+      score += 1
+    }else if(["D", "G"].includes(ch)){
+      score += 2
+    }else if(["B", "C", "M", "P"].includes(ch)){
+      score += 3
+    }else if(["F", "H", "V", "W", "Y"].includes(ch)){
+      score += 4
+    }else if(ch === "K"){
+      score += 5 
+    }else if(["J", "X"].includes(ch)){
+      score += 8
+    }else{
+      score += 10 
+    }
+  }
+  return score 
+}
+
