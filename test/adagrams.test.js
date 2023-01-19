@@ -144,19 +144,16 @@ describe("Adagrams", () => {
   describe("highestScoreFrom", () => {
     it("returns a hash that contains the word and score of best word in an array", () => {
       const words = ["X", "XX", "XXX", "XXXX"];
-      const scoreWord = jest.spyOn(game, "scoreWord");
-      const highestScoreFrom = jest.spyOn(game, "highestScoreFrom");
-      const score = scoreWord("XXXX");
-      const correct = { word: "XXXX", score: score };
+      const correct = { word: "XXXX", score: scoreWord("XXXX") };
 
-      expect(highestScoreFrom(words)).toEqual(correct);
+      expect(game.highestScoreFrom(words)).toEqual(correct);
     });
 
     it("accurately finds best scoring word even if not sorted", () => {
       const words = ["XXX", "XXXX", "X", "XX"];
       const correct = { word: "XXXX", score: scoreWord("XXXX") };
 
-      expect(highestScoreFrom(words)).toEqual(correct);
+      expect(game.highestScoreFrom(words)).toEqual(correct);
     });
 
     describe("accurately handles tied scores", () => {
@@ -177,8 +174,8 @@ describe("Adagrams", () => {
         };
         expectTie(words);
 
-        expect(highestScoreFrom(words)).toEqual(correct);
-        expect(highestScoreFrom(words.reverse())).toEqual(correct);
+        expect(game.highestScoreFrom(words)).toEqual(correct);
+        expect(game.highestScoreFrom(words.reverse())).toEqual(correct);
       });
 
       it("selects the word with fewer letters when neither are 10 letters", () => {
@@ -186,8 +183,8 @@ describe("Adagrams", () => {
         const correct = { word: "WWW", score: scoreWord("WWW") };
         expectTie(words);
 
-        expect(highestScoreFrom(words)).toEqual(correct);
-        expect(highestScoreFrom(words.reverse())).toEqual(correct);
+        expect(game.highestScoreFrom(words)).toEqual(correct);
+        expect(game.highestScoreFrom(words.reverse())).toEqual(correct);
       });
 
       it("selects the first word when both have same length", () => {
@@ -202,8 +199,8 @@ describe("Adagrams", () => {
         };
         expectTie(words);
 
-        expect(highestScoreFrom(words)).toEqual(first);
-        expect(highestScoreFrom(words.reverse())).toEqual(second);
+        expect(game.highestScoreFrom(words)).toEqual(first);
+        expect(game.highestScoreFrom(words.reverse())).toEqual(second);
       });
     });
   });

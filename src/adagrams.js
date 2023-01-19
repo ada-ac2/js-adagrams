@@ -1,7 +1,7 @@
 export default class Adagrams {
   constructor() {
-    this.score = 0;
-    this.hand = [];
+    // this.score = 0;
+    // this.hand = [];
   }
 
   drawLetters() {
@@ -34,19 +34,19 @@ export default class Adagrams {
       Z: 1,
     };
     const letters = Object.keys(letterPool);
-    this.hand = [];
+    let hand = [];
     let i = 0;
 
     while (i < 10) {
       let drawnLetter = letters[Math.floor(Math.random() * letters.length)];
       if (letterPool[drawnLetter] > 0) {
-        this.hand.push(drawnLetter);
+        hand.push(drawnLetter);
         letterPool[drawnLetter]--;
         i++;
       }
     }
 
-    return this.hand;
+    return hand;
   }
 
   usesAvailableLetters(input, lettersInHand) {
