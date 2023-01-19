@@ -40,6 +40,31 @@ export const scoreWord = (word) => {
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 4
+  let highest_score = 0;
+  let highest_score_word = words[0];
+  for (let word of words) {
+    let word_score = scoreWord(word);
+    if (word_score > highest_score) {
+      highest_score = word_score;
+      highest_score_word = word;
+    } else if (word_score === highest_score) {
+      // there is a tie
+      if (highest_score_word.length === 10) {
+        continue;
+      } else if (word.length === 10 && highest_score_word.length !== 10) {
+        highest_score = word_score;
+        highest_score_word = word;
+      } else if (word.length < highest_score_word.length) {
+        highest_score_word = word;
+        highest_score = word_score;
+      }
+    }
+  }
+  const highest_scores_lst = {
+    word: highest_score_word,
+    score: highest_score,
+  };
+  return highest_scores_lst;
 };
 const LETTER_VALUES = {
   A: 1,
