@@ -104,6 +104,11 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 }
 export const scoreWord = (word) => {
   // Implement this method for wave 3
+  let wordLength = word.length;
+
+  for (let cha of word) {
+    
+  }
 };
 
 export const highestScoreFrom = (words) => {
