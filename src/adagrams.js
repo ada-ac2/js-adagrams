@@ -81,6 +81,14 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   let inputFreq = {};
   let lettersInHandFreq = {};
   
+  for (let letter in lettersInHand) {
+    if (letter in lettersInHandFreq) {
+      lettersInHandFreq[letter] += 1;
+    }else{
+      lettersInHandFreq[letter] = 1;
+    }
+  };
+  
 };
 
 export const scoreWord = (word) => {
