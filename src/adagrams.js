@@ -107,14 +107,14 @@ export const scoreWord = (word) => {
   let wordLength = word.length;
   let score = 0;
   if (wordLength < 7) {
-    for(let cha of word) {
+    for(let cha of word.toUpperCase()) {
       let chaScore = scoreChart[cha];
       score += chaScore;
     }
     return score;
   } else{
     score = 8;
-    for(let cha of word) {
+    for(let cha of word.toUpperCase()) {
       let chaScore = scoreChart[cha];
       score += chaScore;
     }
