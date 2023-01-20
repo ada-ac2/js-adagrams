@@ -78,6 +78,9 @@ export const drawLetters = () => {
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
+  let inputFreq = {};
+  let lettersInHandFreq = {};
+  
 };
 
 export const scoreWord = (word) => {
