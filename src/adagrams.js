@@ -112,9 +112,14 @@ export const scoreWord = (word) => {
       score += chaScore;
     }
     return score;
-  } 
-  
-  
+  } else{
+    score = 8;
+    for(let cha of word) {
+      let chaScore = scoreChart[cha];
+      score += chaScore;
+    }
+    return score;
+  }
   
 };
 
