@@ -103,9 +103,10 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   return true;
 }
 export const scoreWord = (word) => {
-  // Implement this method for wave 3
+  // initial wordLength and score
   let wordLength = word.length;
   let score = 0;
+  // get the score for wordLength < 7
   if (wordLength < 7) {
     for(let cha of word.toUpperCase()) {
       let chaScore = scoreChart[cha];
@@ -113,6 +114,7 @@ export const scoreWord = (word) => {
     }
     return score;
   } else{
+    // get the score for wordLength >= 7
     score = 8;
     for(let cha of word.toUpperCase()) {
       let chaScore = scoreChart[cha];
