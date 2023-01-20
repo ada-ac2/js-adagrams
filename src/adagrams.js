@@ -2,8 +2,9 @@ export const drawLetters = () => {
   // Implement this method for wave 1
   let lp_copy = JSON.parse(JSON.stringify(LETTER_POOL));
   let drawLetters = [];
+  const sum = sumOfValues(lp_copy);
   while (drawLetters.length < 10) {
-    const index = Math.floor(Math.random() * (98 + 1));
+    const index = Math.floor(Math.random() * (sum + 1));
     const letter = whichLetter(index, lp_copy);
     //const letter = Object.keys(lp_copy)[index];
     if (lp_copy[letter] > 0) {
@@ -22,6 +23,14 @@ const whichLetter = (index, lp_copy) => {
       index -= lp_copy[letter];
     }
   }
+};
+
+const sumOfValues = (lp_copy) => {
+  let sum = 0;
+  for (let val of Object.values(lp_copy)) {
+    sum += val;
+  }
+  return sum;
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
