@@ -58,23 +58,22 @@ const scoreChart ={
 };
 
 export const drawLetters = () => {
-  // Implement this method for wave 1
+  // initial drawLetters, cloneLetterPool, letters
   let drawLetters = [];
   let cloneLetterPool = {...letterPool};
   let letters = Object.keys(cloneLetterPool);
-  for (i=0;i<10;++i){
+
+  // for loop 10 times
+  for (let i=0;i<10;++i){
+    // get random letter in the pool
     let randomLetter = letters[Math.floor(Math.random()*letters.length)];
-    drawLetters.push(randomLetter);
-    let num = cloneLetterPool.drawLetters;
-    num -= 1;
-    if (num===0){
-      delete cloneLetterPool.randomLetter;
-    }
-
-  }
-
-
-
+    // check the value of letter in the pool
+    if (cloneLetterPool[randomLetter]>0){
+      cloneLetterPool[randomLetter]--;
+      drawLetters.push(randomLetter);
+      };
+  };
+  return drawLetters;
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
