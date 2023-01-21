@@ -44,7 +44,16 @@ export const drawLetters = () => {
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
+  let letterBankCopy = JSON.parse(JSON.stringify(lettersInHand));
+  
+  for (let i = 0; i < input.length; i++) {
+    if (letterBankCopy.includes(input[i])) {
+      delete letterBankCopy[i];
+    } else {
+      return false;
+    }
+  }
+  return true;
 };
 
 export const scoreWord = (word) => {
