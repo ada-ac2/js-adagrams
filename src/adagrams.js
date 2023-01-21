@@ -27,12 +27,11 @@ const LETTER_POOL = {
   Z: 1,
 };
 
-
 export const drawLetters = () => {
   let letters = [];
   for (let i = 0; i < 10; ++i) {
     let letter = String.fromCharCode(Math.floor(Math.random() * 26) + 65);
-    if (LETTER_POOL[letter] > 0) {
+    if ( LETTER_POOL[letter] > 0) {
         LETTER_POOL[letter] -= 1;
         letters.push(letter);
       } else {
@@ -43,7 +42,22 @@ export const drawLetters = () => {
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
+  input = input.toUpperCase();
+
+  let letterFreq = {};
+  for (let i=0; i < lettersInHand.length; i++) {
+    letterFreq[lettersInHand[i]] = (letterFreq[lettersInHand[i]] || 0) +1 ;
+  };
+  
+  for (let i=0; i < input.length; i++) {
+    let letter = input[i];
+    if ((letter in letterFreq)&&(letterFreq[letter] > 0)) {
+      letterFreq[letter] -= 1;
+    } else {
+      return false;
+    }
+  };
+  return true;
 };
 
 export const scoreWord = (word) => {
