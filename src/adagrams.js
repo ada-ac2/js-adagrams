@@ -27,8 +27,6 @@ const LETTER_POOL = {
   Z: 1,
 };
 
-const LEN = 26;
-
 const scoreChart = {
   A: 1,
   B: 3,
@@ -62,7 +60,7 @@ export const drawLetters = () => {
   let letterFrequency = {};
   let aHandOfLetters = [];
   while (aHandOfLetters.length < 10) {
-    let randomNum = Math.floor(Math.random() * LEN);
+    let randomNum = Math.floor(Math.random() * 26);
     let randomLetter = String.fromCharCode(randomNum + 65);
 
     if (
@@ -81,8 +79,8 @@ export const drawLetters = () => {
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   let found = 0;
-  for (let char of input) {
-    for (let i in lettersInHand) {
+  for (const char of input) {
+    for (const i in lettersInHand) {
       if (char === lettersInHand[i]) {
         lettersInHand[i] = "";
         found++;
@@ -97,11 +95,8 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 };
 
 export const scoreWord = (word) => {
-  // if (word.length === 0) {
-  //   return 0;
-  // }
   let totalPoints = 0;
-  for (let char of word) {
+  for (const char of word) {
     totalPoints += scoreChart[char.toUpperCase()];
   }
   if (word.length >= 7) {
@@ -111,5 +106,36 @@ export const scoreWord = (word) => {
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 4
+  let scoreWordsChart = {};
+  for (const word of words) {
+    let points = scoreWord(word);
+    scoreWordsChart[word] = points;
+  }
+
+  let inCaseTie = [];
+  let val = Object.values(scoreWordsChart);
+  const maxScore = Math.max(...val);
+
+  for (const word in scoreWordsChart) {
+    if (maxScore === scoreWordsChart[word]) {
+      inCaseTie.push(word);
+    }
+  }
+
+  if (inCaseTie.length === 1) {
+    let word = inCaseTie[0];
+    return { word: word, score: scoreWordsChart[word] };
+  }
+
+  let shortestWord = inCaseTie[0];
+
+  for (const word of inCaseTie) {
+    if (word.length === 10) {
+      return { word: word, score: scoreWordsChart[word] };
+    }
+    if (shortestWord.length > word.length) {
+      shortestWord = word;
+    }
+  }
+  return { word: shortestWord, score: scoreWordsChart[shortestWord] };
 };
