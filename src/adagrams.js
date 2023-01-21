@@ -80,7 +80,7 @@ export const scoreWord = (word) => {
     U: 1, V: 4, W: 4, X: 8, 
     Y: 4, Z: 10
 };
-  console.log(`TYPE: ${typeof word}`);
+
   let score = 0;
   if (word.length > 0) {
     for (let letter in word){
@@ -91,9 +91,36 @@ export const scoreWord = (word) => {
     }
   }
   return score;
-  
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 4
+  let highestWordAndScore = ["", 0];
+  let score = 0;
+  for (let i in words) {
+    score = scoreWord(words[i]);
+    if (score > highestWordAndScore[1]) {
+      highestWordAndScore = [words[i], score];
+    }
+    // check if scores are tied
+    else if (score === highestWordAndScore[1]) {
+      // check if the lengths of both words are the same
+      // if they are, do nothing
+      if (words[i].length != highestWordAndScore[0].length) {
+      // if they arent, check if word is 10 letters long
+        if (words[i].length === 10) {
+          highestWordAndScore = [words[i], score];
+        }
+      // if not, check if word with highest score is not 10 letters long
+        else if (highestWordAndScore[0].length != 10) {
+          // if not, check which word has fewer letters
+          if (words[i].length < highestWordAndScore[0].length) {
+              highestWordAndScore = [words[i], score];
+          }
+        }
+      }
+    }
+    
+  }
+                              
+    return {"score":highestWordAndScore[1], "word":highestWordAndScore[0]};
 };
