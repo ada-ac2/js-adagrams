@@ -101,5 +101,24 @@ export const scoreWord = (word) => {
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 4
+    let highestWord = "";
+    let highestScore = 0;
+    for (let word of words) {
+      let score = scoreWord(word);
+      if (score > highestScore){
+        highestWord = word;
+        highestScore = score;
+      } else if (score === highestScore) {
+        if(highestWord.length === 10){
+          continue;
+        } else if ((word.length === 10)||(highestWord.length > word.length)){
+          highestWord = word;
+          highestScore = score;
+        };
+      };
+    };
+  return {
+      word: highestWord,
+      score: highestScore
+  };
 };
