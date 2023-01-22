@@ -1,6 +1,6 @@
 "use strict";
 
-export default class Adagrams{
+class Adagrams{
 
   drawLetters = () => {
     const letterPool = {
@@ -127,4 +127,4 @@ export default class Adagrams{
   };
 };
 
-
+export default Adagrams;
