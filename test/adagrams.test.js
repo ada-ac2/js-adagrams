@@ -1,9 +1,4 @@
-import {
-  drawLetters,
-  usesAvailableLetters,
-  scoreWord,
-  highestScoreFrom,
-} from "adagrams";
+import Adagrams from "../src/adagrams";
 
 const LETTER_POOL = {
   A: 9,
@@ -35,15 +30,22 @@ const LETTER_POOL = {
 };
 
 describe("Adagrams", () => {
+  // setup mocks for testing
+  const game = new Adagrams();
+  const drawLetters = jest.spyOn(game, "drawLetters");
+  const usesAvailableLetters = jest.spyOn(game, "usesAvailableLetters");
+  const scoreWord = jest.spyOn(game, "scoreWord");
+  const highestScoreFrom = jest.spyOn(game, "highestScoreFrom");
+
   describe("drawLetters", () => {
     it("draws ten letters from the letter pool", () => {
-      const drawn = drawLetters();
+      const drawn = game.drawLetters();
 
       expect(drawn).toHaveLength(10);
     });
 
     it("returns an array, and each item is a single-letter string", () => {
-      const drawn = drawLetters();
+      const drawn = game.drawLetters();
 
       expect(Array.isArray(drawn)).toBe(true);
       drawn.forEach((l) => {
@@ -53,7 +55,7 @@ describe("Adagrams", () => {
 
     it("does not draw a letter too many times", () => {
       for (let i = 0; i < 1000; i++) {
-        const drawn = drawLetters();
+        const drawn = game.drawLetters();
         const letter_freq = {};
         for (let letter of drawn) {
           if (letter in letter_freq) {
@@ -120,7 +122,9 @@ describe("Adagrams", () => {
     });
 
     it("returns a score of 0 if given an empty input", () => {
-      throw "Complete test";
+      expectScores({
+        "": 0,
+      });
     });
 
     it("adds an extra 8 points if word is 7 or more characters long", () => {
@@ -133,22 +137,22 @@ describe("Adagrams", () => {
     });
   });
 
-  describe.skip("highestScoreFrom", () => {
+  describe("highestScoreFrom", () => {
     it("returns a hash that contains the word and score of best word in an array", () => {
       const words = ["X", "XX", "XXX", "XXXX"];
       const correct = { word: "XXXX", score: scoreWord("XXXX") };
 
-      expect(highestScoreFrom(words)).toEqual(correct);
+      expect(game.highestScoreFrom(words)).toEqual(correct);
     });
 
     it("accurately finds best scoring word even if not sorted", () => {
       const words = ["XXX", "XXXX", "X", "XX"];
       const correct = { word: "XXXX", score: scoreWord("XXXX") };
 
-      throw "Complete test by adding an assertion";
+      expect(game.highestScoreFrom(words)).toEqual(correct);
     });
 
-    describe("in case of tied score", () => {
+    describe("accurately handles tied scores", () => {
       const expectTie = (words) => {
         const scores = words.map((word) => scoreWord(word));
         const highScore = scores.reduce((h, s) => (h < s ? s : h), 0);
@@ -166,8 +170,8 @@ describe("Adagrams", () => {
         };
         expectTie(words);
 
-        expect(highestScoreFrom(words)).toEqual(correct);
-        expect(highestScoreFrom(words.reverse())).toEqual(correct);
+        expect(game.highestScoreFrom(words)).toEqual(correct);
+        expect(game.highestScoreFrom(words.reverse())).toEqual(correct);
       });
 
       it("selects the word with fewer letters when neither are 10 letters", () => {
@@ -175,8 +179,8 @@ describe("Adagrams", () => {
         const correct = { word: "WWW", score: scoreWord("WWW") };
         expectTie(words);
 
-        expect(highestScoreFrom(words)).toEqual(correct);
-        expect(highestScoreFrom(words.reverse())).toEqual(correct);
+        expect(game.highestScoreFrom(words)).toEqual(correct);
+        expect(game.highestScoreFrom(words.reverse())).toEqual(correct);
       });
 
       it("selects the first word when both have same length", () => {
@@ -191,8 +195,8 @@ describe("Adagrams", () => {
         };
         expectTie(words);
 
-        expect(highestScoreFrom(words)).toEqual(first);
-        expect(highestScoreFrom(words.reverse())).toEqual(second);
+        expect(game.highestScoreFrom(words)).toEqual(first);
+        expect(game.highestScoreFrom(words.reverse())).toEqual(second);
       });
     });
   });
