@@ -1,3 +1,5 @@
+"use strict";
+
 export const drawLetters = () => {
   const lettersPool = [
     "A",
@@ -156,40 +158,46 @@ export const scoreWord = (word) => {
   };
   let score = 0;
   word = word.toUpperCase();
-
   for (const letter of word) {
     score += lettersValue[letter];
   }
-
   if (word.length > 6) {
     score += 8;
   }
-
   return score;
 };
 
-export const highestScoreFrom = (words) => {
+// ~~~~~~~~~~~~~~~~~~~ pseudo code for wave 4 ~~~~~~~~~~~~~~~~~~
+// - create an empty dictionary
+// - loop over the list "words": add the word as the key to the dict and the score (accessed through the last function) as the value
+// -  create an empty dcit: wordsWithHighestScore
+// - find these words manually in a for loop (after finding the maximum value by the builtin function) and add them as the keys and their length as the value
+// - if length of the dict is one: return this word
+// - else: find the words with the score 10 and put them in a list --> if the length is one --> return this word
+// - find the minumum word length in the dict and find out how many words share that length by adding these word to a dict where the values are the indeces in the original list
+//- --> if only one has the minLength --> return this word
+//- return the min of this dictionary
+
+
+const createScoresObject = (words) => {
   const scoresObject = {};
   for (const word of words) {
     scoresObject[word] = scoreWord(word);
   }
+  return scoresObject;
+};
 
-  const scoresArray = Object.values(scoresObject);
-  const maxScore = Math.max(...scoresArray);
+const createWordsWithMaxScoreObject = (scoresObject, maxScore) => {
   const wordsWithMaxScore = {};
   for (const word in scoresObject) {
     if (scoresObject[word] === maxScore) {
       wordsWithMaxScore[word] = word.length;
     }
   }
+  return wordsWithMaxScore;
+};
 
-  if (Object.keys(wordsWithMaxScore).length === 1) {
-    return {
-      word: Object.keys(wordsWithMaxScore)[0],
-      score: maxScore,
-    };
-  }
-
+const findIfOneWordWith10Letters = (wordsWithMaxScore) => {
   let wordsWithMaxScore10Letters = 0;
   let winnerWord;
   for (const word of Object.keys(wordsWithMaxScore)) {
@@ -198,14 +206,13 @@ export const highestScoreFrom = (words) => {
       winnerWord = word;
     }
   }
-
   if (wordsWithMaxScore10Letters === 1) {
-    return {
-      word: winnerWord,
-      score: maxScore,
-    };
+    return winnerWord;
   }
+  return "";
+};
 
+const findWordsWithMinLength = (wordsWithMaxScore, words) => {
   const wordLengthsArray = Object.values(wordsWithMaxScore);
   const minWordLength = Math.min(...wordLengthsArray);
   const wordsWithMinLength = {};
@@ -214,7 +221,54 @@ export const highestScoreFrom = (words) => {
       wordsWithMinLength[word] = words.indexOf(word);
     }
   }
+  return wordsWithMinLength;
+};
 
+const findWordWithMinIndex = (wordsWithMinLength) => {
+  const indexArray = Object.values(wordsWithMinLength);
+  const minIndex = Math.min(...indexArray);
+  for (const word in wordsWithMinLength) {
+    if (wordsWithMinLength[word] === minIndex) {
+      return word;
+    }
+  }
+};
+
+export const highestScoreFrom = (words) => {
+  // create scoresObject where the keys are the words and the values are the scores
+  const scoresObject = createScoresObject(words);
+  const scoresArray = Object.values(scoresObject);
+  const maxScore = Math.max(...scoresArray);
+
+  // create object wordsWithMaxScore 
+  // where the keys are the words which have the max score
+  // and the values are the length of each word
+  const wordsWithMaxScore = createWordsWithMaxScoreObject(
+    scoresObject,
+    maxScore
+  );
+  if (Object.keys(wordsWithMaxScore).length === 1) {
+    return {
+      word: Object.keys(wordsWithMaxScore)[0],
+      score: maxScore,
+    };
+  }
+
+  //the function findIfOneWordWith10Letters() returns the word 
+  // which is made of 10 letters if there's only one among the words with maxScore
+  // else the function returns an empty string
+  const oneWordWith10Letters = findIfOneWordWith10Letters(wordsWithMaxScore);
+  if (oneWordWith10Letters) {
+    return {
+      word: oneWordWith10Letters,
+      score: maxScore,
+    };
+  }
+
+  // create object wordsWithMinLength where the keys are the words
+  // with the smallest length and the values are the words' indices 
+  // in the input array
+  const wordsWithMinLength = findWordsWithMinLength(wordsWithMaxScore, words);
   if (Object.keys(wordsWithMinLength).length === 1) {
     return {
       word: Object.keys(wordsWithMinLength)[0],
@@ -222,25 +276,8 @@ export const highestScoreFrom = (words) => {
     };
   }
 
-  const indexArray = Object.values(wordsWithMinLength);
-  const minIndex = Math.min(...indexArray);
-  for (const word in wordsWithMinLength) {
-    if (wordsWithMinLength[word] === minIndex) {
-      return {
-        word: word,
-        score: maxScore,
-      };
-    }
-  }
+  return {
+    word: findWordWithMinIndex(wordsWithMinLength),
+    score: maxScore,
+  };
 };
-
-// - create an empty dictionary
-// - loop over the list "words": add the word as the key to the dict and the score (accessed through the last function) as the value
-// -  create an empty dcit: wordsWithHighestScore
-// - find these words manually in a for loop (after finding the maximum value by the builtin function) and add them as the keys and their length as the value
-// - if length of the dict is one: return this word
-// - else: find the words with the score 10 and put them in a list --> if the length is one --> return this word
-
-// - find the minumum word length in the dict and find out how many words share that length by adding these word to a dict where the values are the indeces in the original list
-//- --> if only one has the minLength --> return this word
-//- return the min of this dict
