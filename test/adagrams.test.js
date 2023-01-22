@@ -1,9 +1,5 @@
 import Adagrams from "../src/adagrams";
 
-beforeEach(() => {
-  jest.restoreAllMocks();
-});
-
 const LETTER_POOL = {
   A: 9,
   B: 2,
