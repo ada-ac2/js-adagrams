@@ -1,16 +1,6 @@
-import {
-  drawLetters,
-  usesAvailableLetters,
-  scoreWord,
-  highestScoreFrom,
-} from "adagrams";
+import Adagrams from "../adagrams";
 
-const Real = {
-  drawLetters,
-  usesAvailableLetters,
-  scoreWord,
-  highestScoreFrom,
-};
+const Real = new Adagrams();
 
 const Stub = {
   drawLetters() {
@@ -28,7 +18,7 @@ const Stub = {
       return Real.usesAvailableLetters(input, lettersInHand);
     }
 
-    return true;
+    return null;
   },
 
   scoreWord(word) {
