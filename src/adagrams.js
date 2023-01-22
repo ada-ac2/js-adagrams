@@ -1,4 +1,5 @@
 import { Alphabet } from "./alphabet.js";
+import { ScoreChart } from "./scoreChart.js";
 
 export const drawLetters = () => {
   // initialize player hand
@@ -20,10 +21,11 @@ export const drawLetters = () => {
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
+  /////////// HASH TABLE IMPLEMENTATION - OPPORTUNITY TO REFACTOR /////////////////
   // convert input string to array
-  const inputArr = [...input];
+  const inputArr = [...input.toUpperCase()];
   // make mutable copy of letters in hand
-  let handArr = [...lettersInHand];
+  let handArr = [...lettersInHand.toUpperCase()];
   for (let i = 0; i < inputArr.length; i++) {
     // collect letter
     const letter = inputArr[i];
@@ -41,7 +43,22 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 };
 
 export const scoreWord = (word) => {
-  // Implement this method for wave 3
+  // initialize word score
+  let score = 0;
+  // initialize score chart
+  const scoreChart = new ScoreChart();
+  // convert word string to array
+  const wordArr = [...word.toUpperCase()];
+  // check each letter in word
+  wordArr.forEach((letter, i) => {
+    score += scoreChart.object[letter];
+    if (i === 7) {
+      score += 8;
+    }
+  });
+  // for (let letter of wordArr) {
+  // look up letter in score chart and add score
+  return score;
 };
 
 export const highestScoreFrom = (words) => {
