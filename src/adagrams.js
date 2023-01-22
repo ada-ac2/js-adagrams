@@ -52,22 +52,22 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 
   let word = input.toUpperCase();
 
-  // Create dictionary of letter frequency for lettersInHand
+  // Create object of letter frequency for lettersInHand
   const letterBankCount = {}
 
   for (const letter of lettersInHand) {
-    if (letterBankCount.hasOwnProperty(letter)) {
+    if (letter in letterBankCount) {
       letterBankCount[letter] += 1;
     } else {
       letterBankCount[letter] = 1;
     }
   }
 
-  // Create dictionary of letter frequency for word
+  // Create object of letter frequency for word
   const wordCount = {}
 
   for (const letter of word) {
-    if (wordCount.hasOwnProperty(letter)) {
+    if (letter in wordCount) {
       wordCount[letter] += 1;
     } else {
       wordCount[letter] = 1;
@@ -76,8 +76,8 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 
   // Check that word letter frequency complies with lettersInHand
 
-  for (let [key,value] of Object.entries(wordCount)) {
-    if (!letterBankCount.hasOwnProperty(key)) {
+  for (const key in wordCount) {
+    if (!(key in letterBankCount)) {
       return false;
     } else if (wordCount[key] > letterBankCount[key]) {
       return false;
@@ -147,7 +147,7 @@ export const highestScoreFrom = (words) => {
 
   for (let word of words) {
     word = word.toUpperCase();
-    if (!scores.hasOwnProperty(word)) {
+    if (!(word in scores)) {
       scores[word] = scoreWord(word)
     }
   }
@@ -155,7 +155,8 @@ export const highestScoreFrom = (words) => {
   let highestScore = 0;
   let winner;
 
-  for (let [wordEntry, value] of Object.entries(scores)) {
+  for (const wordEntry in scores) {
+
     if (scores[wordEntry] > highestScore) {
       highestScore = scores[wordEntry];
       winner = wordEntry;
