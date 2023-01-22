@@ -37,14 +37,18 @@ const LETTER_POOL = {
 describe("Adagrams", () => {
   describe("drawLetters", () => {
     it("draws ten letters from the letter pool", () => {
+      //Act
       const drawn = drawLetters();
 
+      //Assert
       expect(drawn).toHaveLength(10);
     });
 
     it("returns an array, and each item is a single-letter string", () => {
+      //Act
       const drawn = drawLetters();
 
+      //Assert
       expect(Array.isArray(drawn)).toBe(true);
       drawn.forEach((l) => {
         expect(l).toMatch(/^[A-Z]$/);
@@ -52,6 +56,7 @@ describe("Adagrams", () => {
     });
 
     it("does not draw a letter too many times", () => {
+      //Act
       for (let i = 0; i < 1000; i++) {
         const drawn = drawLetters();
         const letter_freq = {};
@@ -63,6 +68,7 @@ describe("Adagrams", () => {
           }
         }
 
+        //Assert
         for (let letter of drawn) {
           expect(letter_freq[letter]).toBeLessThanOrEqual(LETTER_POOL[letter]);
         }
@@ -120,7 +126,9 @@ describe("Adagrams", () => {
     });
 
     it("returns a score of 0 if given an empty input", () => {
-      throw "Complete test";
+      expectScores({
+        "": 0,
+      });
     });
 
     it("adds an extra 8 points if word is 7 or more characters long", () => {
@@ -133,19 +141,19 @@ describe("Adagrams", () => {
     });
   });
 
-  describe.skip("highestScoreFrom", () => {
+  describe("highestScoreFrom", () => {
     it("returns a hash that contains the word and score of best word in an array", () => {
-      const words = ["X", "XX", "XXX", "XXXX"];
-      const correct = { word: "XXXX", score: scoreWord("XXXX") };
+      const words = ["a", "DOG", "king", "Quit"];
+      const correct = { word: "Quit", score: scoreWord("Quit") };
 
       expect(highestScoreFrom(words)).toEqual(correct);
     });
 
     it("accurately finds best scoring word even if not sorted", () => {
-      const words = ["XXX", "XXXX", "X", "XX"];
-      const correct = { word: "XXXX", score: scoreWord("XXXX") };
+      const words = ["king", "Quantizers", "a", "DOG"];
+      const correct = { word: "Quantizers", score: scoreWord("Quantizers") };
 
-      throw "Complete test by adding an assertion";
+      expect(highestScoreFrom(words)).toEqual(correct);
     });
 
     describe("in case of tied score", () => {
