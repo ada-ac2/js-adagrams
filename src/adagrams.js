@@ -24,14 +24,20 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   const inputArr = [...input];
   // make mutable copy of letters in hand
   let handArr = [...lettersInHand];
-  // check each letter in input
-  inputArr.forEach((letter) => {
-    if (lettersInHand.includes(letter)) {
+  for (let i = 0; i < inputArr.length; i++) {
+    // collect letter
+    const letter = inputArr[i];
+    // check if input letter is in hand
+    if (handArr.includes(letter)) {
+      // collect index of letter
+      const index = handArr.indexOf(letter);
+      // remove letter from copy of letters in hand - prevent duplication
+      handArr.splice(index, 1);
+    } else {
+      return false;
     }
-  });
-
-  // return true if every letter in input in lettersInHand
-  return inputArr.every((letter) => lettersInHand.includes(letter));
+  }
+  return true;
 };
 
 export const scoreWord = (word) => {
