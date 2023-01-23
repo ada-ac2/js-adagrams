@@ -59,7 +59,7 @@ const scoreChart ={
 
 export const drawLetters = () => {
   // initial drawLetters, cloneLetterPool, letters
-  let drawLetters = [];
+  const drawLetters = [];
   let cloneLetterPool = {...letterPool};
   let letters = Object.keys(cloneLetterPool);
 
