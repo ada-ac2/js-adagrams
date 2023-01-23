@@ -71,7 +71,7 @@ class Adagrams{
 
   drawLetters = () => {
     
-    for (let i = 0; i < 10; ++i) {
+    while (this.lettersInHand.length < 10) {
       let letter = String.fromCharCode(Math.floor(Math.random() * 26) + 65);
       
       if ( this.LETTER_POOL[letter] > 0) {
