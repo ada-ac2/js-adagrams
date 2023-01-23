@@ -1,6 +1,6 @@
 
 export const drawLetters = () => {
-  let letters = [];
+  let letters = new Array();
   let letter_pool = {
     A: 9,
     B: 2,
