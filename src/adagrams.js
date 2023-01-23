@@ -77,9 +77,9 @@ class Adagrams{
       if ( this.LETTER_POOL[letter] > 0) {
           this.LETTER_POOL[letter] -= 1;
           this.lettersInHand.push(letter);
-        } else {
-          letter = String.fromCharCode(Math.floor(Math.random() * 26) + 65);
-        };
+        }
+      letter = String.fromCharCode(Math.floor(Math.random() * 26) + 65);
+        
     };
     return this.lettersInHand;
   };
