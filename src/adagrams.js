@@ -132,16 +132,18 @@ export const highestScoreFrom = (words) => {
   //iterate each word and get the score
   words.forEach((word) => {
     let score = scoreWord(word);
-
+  // if the  score more than highestScore sign on the new data
     if (score > highestScore){
       highestScore = score;
       winningWord = word;
     } else if (score === highestScore) {
+      //if the scores are same, choose the word, which is length is 10
       if (word.length === 10 && winningWord.length != 10) {
         winningWord = word;
+        // //if the scores are same, choose the length is smaller.
       } else if (word.length < winningWord.length && winningWord.length != 10){
         winningWord = word;
-      }
+      } 
     }
   });
   const winner = {word: winningWord, score:highestScore};
