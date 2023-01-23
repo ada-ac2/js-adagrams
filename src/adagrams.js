@@ -127,16 +127,23 @@ export const scoreWord = (word) => {
 
 export const highestScoreFrom = (words) => {
   // Initial hightestScore and winningWord
-  let hightestScore = 0;
+  let highestScore = 0;
   let winningWord = "";
+  //iterate each word and get the score
+  words.forEach((word) => {
+    let score = scoreWord(word);
 
-  words.forEach(word) =>{
-    const score = scoreWord(word);
-
-    if (score > hightestScore){
-      hightestScore = score;
+    if (score > highestScore){
+      highestScore = score;
       winningWord = word;
-    } else if (score === highestScore)
-
-  }
+    } else if (score === highestScore) {
+      if (word.length === 10 && winningWord.length != 10) {
+        winningWord = word;
+      } else if (word.length < winningWord.length && winningWord.length != 10){
+        winningWord = word;
+      }
+    }
+  });
+  const winner = {word: winningWord, score:highestScore};
+  return winner;
 };
