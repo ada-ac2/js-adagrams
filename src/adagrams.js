@@ -53,18 +53,21 @@ export const drawLetters = () => {
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // check if all letters in input exists in lettersInHand
+  let tempLettersInHand = `${lettersInHand}`;
   for (let letter of input) {
-    if (!lettersInHand.includes(letter)) {
+    if (tempLettersInHand.includes(letter)) {
+      tempLettersInHand = tempLettersInHand.replace(letter, "");
+    } else {
       return false;
     }
   }
   return true;
 };
-/*
+
 export const scoreWord = (word) => {
   // Implement this method for wave 3
 };
-
+/*
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 4
 };
