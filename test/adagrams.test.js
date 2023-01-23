@@ -119,7 +119,6 @@ describe("Adagrams", () => {
       expectScores({
         "": 0
       });
-
       // throw "Complete test";
     });
 

@@ -122,6 +122,9 @@ class Adagrams{
   
   scoreWord = (word) => {
     this.word = word.toUpperCase();
+    if (!this.isValid(this.word)){
+      return 0;
+    }
     let point = 0;
     
     for (let i=0; i < this.word.length; ++i){
