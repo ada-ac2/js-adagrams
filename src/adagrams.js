@@ -39,17 +39,6 @@ export const drawLetters = () => {
     }
   }
   return res;
-  // const LETTER_CLONE = { ...LETTER_POOL };
-  // const letters = Object.keys(LETTER_CLONE);
-  // let res = [];
-  // let i = 0;
-  // while (i < 10) {
-  //   let letter = letters[Math.floor(Math.random() * keyArray.length)];
-  //   if (LETTER_CLONE[letter] > 0) {
-  //     res.push[letter];
-  //     LETTER_CLONE[letter]--;
-  //     i++;
-  //   }
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
