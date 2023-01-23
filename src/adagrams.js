@@ -59,7 +59,7 @@ export const usesAvailableLetters = (input, lettersInHand) => {
       checkedWord.push(letter);
     }
   }
-
+  lettersInHand += checkedWord;
   if (checkedWord.join("") === input) {
     return true;
   }
