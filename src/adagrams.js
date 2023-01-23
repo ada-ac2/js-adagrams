@@ -51,5 +51,21 @@ export const scoreWord = (word) => {
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 4
+  // initialize winning word object
+  const winningWord = { word: "", score: 0 };
+  for (let word of words) {
+    // collect word score
+    const score = scoreWord(word);
+    // pick word with highest score
+    if (score > winningWord.score) {
+      winningWord.word = word;
+      winningWord.score = score;
+    } else if (score === winningWord.score) {
+      // pick word by tie breaker criteria
+      winningWord.word = Score.breakTie(winningWord.word, word);
+    } else {
+      continue;
+    }
+  }
+  return winningWord;
 };
