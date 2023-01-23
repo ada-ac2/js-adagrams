@@ -1,7 +1,7 @@
 import Model from 'demo/model';
 import Adagrams from 'demo/adagrams';
 
-describe.skip('Game Model', () => {
+describe('Game Model', () => {
   const config = {
     players: [
       'Player A',
@@ -318,9 +318,9 @@ describe.skip('Game Model', () => {
       it('it returns null', () => {
         const model = getModel();
         const word = getWord(model);
-
-        expect(model.playWord(word)).toBe(null);
+        
         expect(model.playWord('123')).toBe(null);
+        expect(model.playWord(word)).toBe(null);
         expect(model.playWord('')).toBe(null);
       });
 

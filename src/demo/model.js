@@ -80,6 +80,13 @@ class Model {
 
   _valid(word, letterBank = this.letterBank) {
     if(word.length < 1) return false;
+    
+    for(let i=0; i < word.length; ++i){
+      
+      if (!(/^[A-Z]$/.test(word[i])) ){
+        return false;
+      }
+    }
     return Adagrams.usesAvailableLetters(word, letterBank);
   }
 
