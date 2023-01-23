@@ -46,4 +46,22 @@ export class Score {
     }
     return wordScore;
   }
+  static breakTie(word1, word2) {
+    /**
+     * Chooses between two words of equal score with the following criteria
+     * in order of priority:
+     * (1) word of length 10
+     * (2) smallest length word
+     * (3) word1 if lengths equal
+     */
+    // pick smallest word length
+    if (word1.length === 10) {
+      return word1;
+    } else if (word2.length < word1.length || word2.length === 10) {
+      return word2;
+    } else {
+      // return first word
+      return word1;
+    }
+  }
 }
