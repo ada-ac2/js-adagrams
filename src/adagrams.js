@@ -83,9 +83,24 @@ class Adagrams{
     };
     return this.lettersInHand;
   };
-  
+
+  isValid(word){
+    if(word.length < 1) return false;
+    
+    for(let i=0; i < word.length; ++i){
+      
+      if (!(/^[A-Z]$/.test(word[i])) ){
+        return false;
+      }
+    }
+    return true;
+  };
+
   usesAvailableLetters = (input, lettersInHand) => {
     this.input = input.toUpperCase();
+    if (!this.isValid(this.input)){
+      return false;
+    }
     this.lettersInHand = lettersInHand;
   
     let letterFreq = {};
