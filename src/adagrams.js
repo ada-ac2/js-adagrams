@@ -133,6 +133,10 @@ export const highestScoreFrom = (words) => {
   words.forEach(word) =>{
     const score = scoreWord(word);
 
+    if (score > hightestScore){
+      hightestScore = score;
+      winningWord = word;
+    } else if (score === highestScore)
 
   }
 };
