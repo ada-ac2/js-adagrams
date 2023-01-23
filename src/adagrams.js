@@ -126,5 +126,13 @@ export const scoreWord = (word) => {
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 4
+  // Initial hightestScore and winningWord
+  let hightestScore = 0;
+  let winningWord = "";
+
+  words.forEach(word) =>{
+    const score = scoreWord(word);
+
+
+  }
 };
