@@ -69,8 +69,7 @@ class Adagrams{
 
   };
 
-  drawLetters = () => {
-    
+  drawLetters() {
     while (this.lettersInHand.length < 10) {
       let letter = String.fromCharCode(Math.floor(Math.random() * 26) + 65);
       
@@ -84,7 +83,7 @@ class Adagrams{
     return this.lettersInHand;
   };
 
-  isValid(word){
+  isValid(word) {
     if(word.length < 1) return false;
     
     for(let i=0; i < word.length; ++i){
@@ -96,7 +95,7 @@ class Adagrams{
     return true;
   };
 
-  usesAvailableLetters = (input, lettersInHand) => {
+  usesAvailableLetters(input, lettersInHand) {
     this.input = input.toUpperCase();
     if (!this.isValid(this.input)){
       return false;
@@ -120,7 +119,7 @@ class Adagrams{
     return true;
   };
   
-  scoreWord = (word) => {
+  scoreWord(word) {
     this.word = word.toUpperCase();
     if (!this.isValid(this.word)){
       return 0;
@@ -138,7 +137,7 @@ class Adagrams{
     return point;
   };
   
-  highestScoreFrom = (words) => {
+  highestScoreFrom(words) {
   
       for (let word of words) {
         let point = this.scoreWord(word);
