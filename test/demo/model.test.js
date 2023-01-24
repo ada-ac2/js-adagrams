@@ -318,9 +318,9 @@ describe('Game Model', () => {
       it('it returns null', () => {
         const model = getModel();
         const word = getWord(model);
-        
-        expect(model.playWord('123')).toBe(null);
+
         expect(model.playWord(word)).toBe(null);
+        expect(model.playWord('123')).toBe(null);
         expect(model.playWord('')).toBe(null);
       });
 
