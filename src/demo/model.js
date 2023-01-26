@@ -19,7 +19,6 @@ class Model {
             ["APPLE", "PAPA", "LEAP"],    // round 1
             ["WALK", "WALKER", "RAKE"],   // round 2
           ],
-
           playerTwo: [
             ["PALE", "PELT"],             // round 1
             ["REAL", "WALTER", "TALKER"], // round 2
